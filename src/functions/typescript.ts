@@ -76,8 +76,32 @@ type NumberArray = Array<number>;
 
 type ObjectWithNameArray = Array<{ name: string }>
 
+
+// you can declare your own types using generics:
+
+interface Backpack<Type> {
+    add: (obj: Type) => void;
+    get: () => Type;
+}
+
 /* 
 
+This is a shortcut to tell typescript
+there is a const called "backpack", and that 
+typescript shouldn't worry about where it came from. 
+
+*/
+
+declare const backpack: Backpack<string>;
+
+// object is a string, because we declared it above as the variable part of Backpack
+const object = backpack.get();
+
+// since the backpack variable is a string, you can't pass a number to the add function.
+backpack.add(23);
+// the error will indicate that the type is a string and the number doesn't pass
+
+/*
 One of TypeScript’s core principles is that type checking focuses on 
 the shape that values have. This is sometimes called “duck typing” or “structural typing”.
 
